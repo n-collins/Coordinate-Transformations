@@ -47,11 +47,13 @@ public class ModifyData {
                 String[] s = temp.split(",");
                 if (!(s[6].contentEquals(new StringBuffer("0")))) {
                 	i++;
+                	// Get data:
                 	int E = Integer.parseInt(s[1]);
                 	int N = Integer.parseInt(s[1]);
                 	double x = Double.parseDouble(s[3]);
                 	double y = Double.parseDouble(s[4]);
                 	double h = Double.parseDouble(s[5]);
+                	// Record min/max:
                 	if (E > maxE) { maxE = E; }
                 	if (N > maxN) { maxN = N; }
                 	if (x < minX) { minX = x; }
@@ -60,8 +62,25 @@ public class ModifyData {
                 	if (x < maxX) { maxX = x; }
                 	if (y < maxY) { maxY = y; }
                 	if (h < maxH) { maxH = h; }
-                	out.write(temp);
+                	// Modify data:
+                	E = E / 1000;
+                	s[1] = E + "";
+                	N = N / 1000;
+                	s[2] = N + "";
+                	int xi = (int)  (x * 1000);
+                	s[3] = xi + "";
+                	int yi = (int)  (y * 1000);
+                	s[4] = yi + "";
+                	int hi = (int)  (h * 1000);
+                	s[5] = hi + "";
+                	// Output data:
+                	StringBuilder sb = new StringBuilder();
+                	for (int idx = 1; idx < s.length; idx++) {
+                		sb.append(s[idx] + ",");
+                	}
+                	out.write(sb.toString());
                 	out.newLine();
+                	
                 }
 
                 temp = in.readLine();
